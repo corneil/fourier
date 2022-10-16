@@ -6,14 +6,16 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@NoArgsConstructor
-@Data
 public class Epicycle
 {
     private Coordinate center;
     private Coordinate terminal;
     private Phasor component;
+
+    public Epicycle() {
+    }
 
     public double getPhase()
     {
@@ -86,5 +88,49 @@ public class Epicycle
                 Renderer.drawing.add(0, drawingPoint);
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Epicycle epicycle = (Epicycle) o;
+
+        if (!Objects.equals(center, epicycle.center)) return false;
+        if (!Objects.equals(terminal, epicycle.terminal)) return false;
+        return Objects.equals(component, epicycle.component);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = center != null ? center.hashCode() : 0;
+        result = 31 * result + (terminal != null ? terminal.hashCode() : 0);
+        result = 31 * result + (component != null ? component.hashCode() : 0);
+        return result;
+    }
+
+    public Coordinate getCenter() {
+        return center;
+    }
+
+    public void setCenter(Coordinate center) {
+        this.center = center;
+    }
+
+    public Coordinate getTerminal() {
+        return terminal;
+    }
+
+    public void setTerminal(Coordinate terminal) {
+        this.terminal = terminal;
+    }
+
+    public Phasor getComponent() {
+        return component;
+    }
+
+    public void setComponent(Phasor component) {
+        this.component = component;
     }
 }
